@@ -3,11 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/drawable-v24/ic_logo.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/drawable-v24/ic_right_arrow.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/drawable-v24/ic_star.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/drawable/bg_movies_gradient.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/drawable/ic_logo.xml" value="0.17962962962962964" />
         <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/layout/activity_splash_screen.xml" value="0.1824074074074074" />
         <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/layout/header_do_detalhes.xml" value="0.22" />
         <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/layout/item_da_lista_de_comentarios.xml" value="0.33" />
         <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/layout/list_movies_item.xml" value="0.253125" />
         <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/layout/lista_de_comentarios.xml" value="0.22" />
+        <entry key="..\:/Users/bruno/AndroidStudioProjects/Mobile2YouChallenge/app/src/main/res/layout/movies_splash_background.xml" value="0.20520833333333333" />
       </map>
     </option>
   </component>

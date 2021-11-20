@@ -1,11 +1,9 @@
 package br.com.brunoccbertolini.mobile2youchallenge
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import br.com.brunoccbertolini.domain.util.Resource
 import br.com.brunoccbertolini.mobile2youchallenge.databinding.ActivityMainBinding
 import br.com.brunoccbertolini.myapplication.viewmodel.MoviesViewModel
@@ -21,8 +19,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Thread.sleep(1500) //Be removed!
+        setTheme(R.style.Theme_Mobile2YouChallenge)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         moviesViewModel.getMoviesNowPlaying()
         inscribeObservers()
 
