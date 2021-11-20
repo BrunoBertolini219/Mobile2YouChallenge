@@ -1,13 +1,13 @@
 package br.com.brunoccbertolini.domain.usecase
 
 import br.com.brunoccbertolini.domain.model.MovieDetailResponse
+import br.com.brunoccbertolini.domain.repository.MoviesRepository
 import br.com.brunoccbertolini.domain.util.ResponseHandler
 
 class GetMovieDetailsUseCaseImpl(
-
+    private val repository: MoviesRepository
 ): GetMovieDetailsUseCase {
-    override suspend fun invoke(id: Int): ResponseHandler<MovieDetailResponse> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun invoke(id: Int): MovieDetailResponse =
+        repository.getMovieDetails(id)
 
 }

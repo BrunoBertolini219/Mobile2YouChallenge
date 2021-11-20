@@ -5,5 +5,5 @@ import br.com.brunoccbertolini.domain.util.ResponseHandler
 
 interface GetMovieDetailsUseCase {
 
-    suspend operator fun invoke(id: Int): ResponseHandler<MovieDetailResponse>
+    suspend operator fun invoke(id: Int): MovieDetailResponse
 }

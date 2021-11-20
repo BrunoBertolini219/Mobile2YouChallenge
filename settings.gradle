@@ -10,3 +10,4 @@ rootProject.name = "Mobile2YouChallenge"
 include ':app'
 include ':domain'
 include ':data'
+include ':presentation'

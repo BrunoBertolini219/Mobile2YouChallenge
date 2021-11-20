@@ -4,5 +4,6 @@ import br.com.brunoccbertolini.domain.model.MoviesListResponse
 import br.com.brunoccbertolini.domain.util.ResponseHandler
 
 interface GetMoviesUseCase {
-    suspend operator fun invoke (): ResponseHandler<MoviesListResponse>
+    suspend operator fun invoke (): MoviesListResponse
+
 }
