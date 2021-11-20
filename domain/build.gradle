@@ -14,6 +14,4 @@ dependencies {
     def hilt_version = '2.39.1'
     implementation "com.google.dagger:hilt-android:$hilt_version"
 
-    def retrofit_version = "2.9.0"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 }

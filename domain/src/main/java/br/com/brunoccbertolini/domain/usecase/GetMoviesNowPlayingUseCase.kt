@@ -1,9 +1,10 @@
 package br.com.brunoccbertolini.domain.usecase
 
 import br.com.brunoccbertolini.domain.model.MoviesListResponse
+import br.com.brunoccbertolini.domain.util.Resource
 import br.com.brunoccbertolini.domain.util.ResponseHandler
 
-interface GetMoviesUseCase {
-    suspend operator fun invoke (): MoviesListResponse
+interface GetMoviesNowPlayingUseCase {
+    suspend operator fun invoke (): Resource<MoviesListResponse>
 
 }
