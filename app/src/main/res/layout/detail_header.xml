@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha=".37"
+            android:contentDescription="@string/movie_selected_image_poster"
             android:outlineProvider="background"
             android:scaleType="centerCrop"
             tools:src="@drawable/sample_back_poster" />
@@ -44,6 +45,7 @@
             <ImageView
                 android:id="@+id/header_poster"
                 android:layout_width="150dp"
+                android:contentDescription="@string/movie_selected_cover_image"
                 android:layout_height="wrap_content"
                 tools:srcCompat="@drawable/sample_poster" />
 
@@ -90,6 +92,7 @@
             android:id="@+id/header_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/favorite_movie"
             app:layout_constraintStart_toStartOf="@id/header_title"
             app:layout_constraintTop_toBottomOf="@id/header_genres"
             app:srcCompat="@drawable/ic_star" />

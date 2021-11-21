@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import br.com.brunoccbertolini.mobile2youchallenge.databinding.FragmentMoviesDetailsBinding
+import br.com.brunoccbertolini.mobile2youchallenge.databinding.FragmentMovieDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
-    private var _viewBinding: FragmentMoviesDetailsBinding? = null
-    private val viewBinding: FragmentMoviesDetailsBinding get() = _viewBinding!!
+    private var _viewBinding: FragmentMovieDetailsBinding? = null
+    private val viewBinding: FragmentMovieDetailsBinding get() = _viewBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _viewBinding = FragmentMoviesDetailsBinding.inflate(inflater, container, false)
+        _viewBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
 

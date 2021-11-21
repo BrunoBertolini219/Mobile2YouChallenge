@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -77,20 +78,30 @@ class MoviesFragment : Fragment() {
                 is Resource.Success -> {
                     response.data?.let { moviesResponse ->
                         adapterMovies.differ.submitList(moviesResponse.results)
+                        hideProgressBar()
                     }
                 }
                 is Resource.Error -> {
                     response.message?.let { message ->
-                        Log.e("MainActivity", "An Error Occured $message")
+                        Toast.makeText(requireContext(), message , Toast.LENGTH_SHORT).show()
+                        hideProgressBar()
                     }
                 }
 
                 is Resource.Loading -> {
-
+                    showProgressBar()
 
                 }
             }
         })
+    }
+
+    private fun hideProgressBar() {
+        viewBinding.paginationProgressBar.visibility = View.INVISIBLE
+    }
+
+    private fun showProgressBar() {
+        viewBinding.paginationProgressBar.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

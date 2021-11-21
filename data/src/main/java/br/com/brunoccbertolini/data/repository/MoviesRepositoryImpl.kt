@@ -1,5 +1,7 @@
 package br.com.brunoccbertolini.data.repository
 
+import br.com.brunoccbertolini.data.mapper.toDomainMovieDetailsResponse
+import br.com.brunoccbertolini.data.mapper.toDomainMovieReviewsResponse
 import br.com.brunoccbertolini.data.mapper.toDomainMoviesResponse
 import br.com.brunoccbertolini.data.service.MoviesService
 import br.com.brunoccbertolini.domain.model.MovieDetailResponse
@@ -15,30 +17,58 @@ class MoviesRepositoryImpl @Inject constructor(
 ) : MoviesRepository {
 
     override suspend fun getMoviesUpComing(): Resource<MoviesListResponse> =
-        handleCocktailListResponse(moviesService.getMoviesUpcoming())
+        handleMoviesListResponse(moviesService.getMoviesUpcoming())
 
     override suspend fun getMoviesPopular(): Resource<MoviesListResponse> =
-        handleCocktailListResponse(moviesService.getMoviesPopular())
+        handleMoviesListResponse(moviesService.getMoviesPopular())
 
     override suspend fun getMoviesNowPlaying(): Resource<MoviesListResponse> =
-        handleCocktailListResponse(moviesService.getMoviesNowPlaying())
+        handleMoviesListResponse(moviesService.getMoviesNowPlaying())
 
     override suspend fun getMoviesTopRated(): Resource<MoviesListResponse> =
-        handleCocktailListResponse(moviesService.getMoviesTopRated())
+        handleMoviesListResponse(moviesService.getMoviesTopRated())
 
     override suspend fun getSimilarMovies(id: Int): Resource<MoviesListResponse> =
-        handleCocktailListResponse(moviesService.getSimilarMovies(id))
+        handleMoviesListResponse(moviesService.getSimilarMovies(id))
 
-    override suspend fun getMovieDetails(id: Int): MovieDetailResponse {
-        TODO("Not yet implemented")
+    override suspend fun getMovieDetails(id: Int): Resource<MovieDetailResponse> {
+        val response = moviesService.getMovieDetails(id)
+        return try {
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    return@let Resource.Success(it.toDomainMovieDetailsResponse())
+                } ?: Resource.Error("An unknown error has ocrrured")
+            } else {
+                return Resource.Error("An unknown error has ocurred")
+            }
+        } catch (e: Exception) {
+            return Resource.Error(
+                "We couldn't reach the server. Check your internet connection",
+                null
+            )
+        }
     }
 
-    override suspend fun getMovieReview(id: Int): MovieReviewResponse {
-        TODO("Not yet implemented")
+    override suspend fun getMovieReview(id: Int): Resource<MovieReviewResponse> {
+        val response = moviesService.getMovieReviews(id)
+        return try {
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    return@let Resource.Success(it.toDomainMovieReviewsResponse())
+                } ?: Resource.Error("An unknown error has ocrrured")
+            } else {
+                return Resource.Error("An unknown error has ocurred")
+            }
+        } catch (e: Exception) {
+            return Resource.Error(
+                "We couldn't reach the server. Check your internet connection",
+                null
+            )
+        }
+    }
     }
 
-
-    private fun handleCocktailListResponse(response: Response<br.com.brunoccbertolini.data.model.MoviesListResponse>): Resource<MoviesListResponse> {
+    private fun handleMoviesListResponse(response: Response<br.com.brunoccbertolini.data.model.MoviesListResponse>): Resource<MoviesListResponse> {
         return try {
 
             if (response.isSuccessful) {
@@ -54,7 +84,4 @@ class MoviesRepositoryImpl @Inject constructor(
                 null
             )
         }
-
     }
-
-}

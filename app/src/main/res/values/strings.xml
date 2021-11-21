@@ -4,4 +4,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movie_item_image">Movie Image</string>
     <string name="now_playing">Em Exibição</string>
+    <string name="movie_selected_image_poster">Movie Selected Image Poster</string>
+    <string name="movie_selected_cover_image">Movie selected cover image</string>
+    <string name="favorite_movie">Favorite Movie</string>
+    <string name="mais_populares">Mais Populares</string>
+    <string name="melhores_avaliados">Melhores Avaliados</string>
+    <string name="sinopse">Sinopse</string>
+    <string name="sinopse_content_description_sample">The Asgardian Loki encounters the Other, the leader of an extraterrestrial race known as the Chitauri. In exchange for retrieving the Tesseract...</string>
+    <string name="comentrio">Comentário</string>
+    <string name="mais_como_este">Mais Como Este</string>
 </resources>

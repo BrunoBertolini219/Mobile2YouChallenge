@@ -10,10 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Alexandra"
+        style="@style/ListTitle"
         android:layout_marginTop="18dp"
-        android:textColor="#DEDDDF"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/item_comment"
@@ -21,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:maxLines="3"
+        android:fontFamily="@font/open_sans"
         android:ellipsize="end"
         android:textColor="#A4A3A9"
         tools:text="It was great. This movie was a continuation of the Avengers of the Eternal War. See it first and then this movie"/>

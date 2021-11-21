@@ -18,5 +18,5 @@
         android:id="@+id/detailsFragment"
         android:name="br.com.brunoccbertolini.mobile2youchallenge.ui.fragments.details.DetailsFragment"
         android:label="fragment_movies_details"
-        tools:layout="@layout/fragment_movies_details" />
+        tools:layout="@layout/fragment_movie_details" />
 </navigation>

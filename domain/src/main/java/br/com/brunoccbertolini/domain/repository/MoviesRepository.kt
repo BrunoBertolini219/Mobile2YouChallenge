@@ -17,8 +17,8 @@ interface MoviesRepository {
 
     suspend fun getSimilarMovies(id:Int): Resource<MoviesListResponse>
 
-    suspend fun getMovieDetails(id: Int): MovieDetailResponse
+    suspend fun getMovieDetails(id: Int): Resource<MovieDetailResponse>
 
-    suspend fun getMovieReview (id: Int): MovieReviewResponse
+    suspend fun getMovieReview (id: Int): Resource<MovieReviewResponse>
 
 }

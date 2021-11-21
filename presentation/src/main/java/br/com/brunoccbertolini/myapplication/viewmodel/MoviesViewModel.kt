@@ -19,13 +19,35 @@ class MoviesViewModel @Inject constructor(
     private val getMoviesPopularUseCaseImpl: GetMoviesPopularUseCaseImpl
 
 ) : ViewModel() {
-        private val _nowPlayingLiveData = MutableLiveData<Resource<MoviesListResponse>>()
-        val nowPlayingLiveData: LiveData<Resource<MoviesListResponse>> = _nowPlayingLiveData
+
+    private val _nowPlayingLiveData = MutableLiveData<Resource<MoviesListResponse>>()
+    val nowPlayingLiveData: LiveData<Resource<MoviesListResponse>> = _nowPlayingLiveData
+
+    private val _upcomingLiveData = MutableLiveData<Resource<MoviesListResponse>>()
+    val upcomingLiveData: LiveData<Resource<MoviesListResponse>> = _upcomingLiveData
+
+    private val _topRatedLiveData = MutableLiveData<Resource<MoviesListResponse>>()
+    val topRatedLiveData: LiveData<Resource<MoviesListResponse>> = _topRatedLiveData
+
+    private val _popularLiveData = MutableLiveData<Resource<MoviesListResponse>>()
+    val popularLiveData: LiveData<Resource<MoviesListResponse>> = _popularLiveData
 
 
-        fun getMoviesNowPlaying() = viewModelScope.launch {
-                _nowPlayingLiveData.postValue(Resource.Loading())
-                val response = getMoviesNowPlayingUseCase.invoke()
-                _nowPlayingLiveData.postValue(response)
-        }
+    fun getMoviesNowPlaying() = viewModelScope.launch {
+        _nowPlayingLiveData.postValue(Resource.Loading())
+        val response = getMoviesNowPlayingUseCase.invoke()
+        _nowPlayingLiveData.postValue(response)
+    }
+
+    fun getMoviesUpcoming() = viewModelScope.launch {
+
+    }
+
+    fun getMoviesTopRated() = viewModelScope.launch {
+
+    }
+
+    fun getMoviesPopular() = viewModelScope.launch {
+
+    }
 }
