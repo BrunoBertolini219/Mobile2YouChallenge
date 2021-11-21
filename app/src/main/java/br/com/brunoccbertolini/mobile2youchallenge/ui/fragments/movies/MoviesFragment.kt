@@ -1,5 +1,6 @@
 package br.com.brunoccbertolini.mobile2youchallenge.ui.fragments.movies
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import br.com.brunoccbertolini.domain.util.Resource
 import br.com.brunoccbertolini.mobile2youchallenge.R
 import br.com.brunoccbertolini.mobile2youchallenge.databinding.FragmentMoviesBinding
 import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MoviesListAdapter
+import br.com.brunoccbertolini.mobile2youchallenge.util.ConnectionLiveData
 import br.com.brunoccbertolini.myapplication.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +24,8 @@ class MoviesFragment : Fragment() {
 
     private var _viewBinding: FragmentMoviesBinding? = null
     private val viewBinding: FragmentMoviesBinding get() = _viewBinding!!
+
+    private lateinit var connectionLiveData: ConnectionLiveData
 
     private val viewModelMovies: MoviesViewModel by viewModels()
 
@@ -37,20 +41,17 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-         viewModelMovies.getMoviesNowPlaying()
-
-        setupObservers()
-
+        checkInternetConnection()
         setupRecyclerView()
         setupNavigation()
-
     }
+
+
 
     private fun setupNavigation() {
         adapterMovies.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("drink", it)
+                putSerializable("movie", it)
             }
             findNavController().navigate(
                 R.id.action_moviesFragment_to_detailsFragment,
@@ -102,6 +103,29 @@ class MoviesFragment : Fragment() {
 
     private fun showProgressBar() {
         viewBinding.paginationProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun checkInternetConnection() {
+            connectionLiveData = ConnectionLiveData(this.requireContext())
+            connectionLiveData.observe(viewLifecycleOwner, { isAvailable ->
+                if (isAvailable) {
+                    viewModelMovies.upcomingResponse
+                    setupObservers()
+                    Log.i("noInternetConnection", "checkInternetConnection: ")
+                    Toast.makeText(
+                        requireContext(),
+                        "Internet Connected!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Log.i("noInternetConnection", "checkInternetConnection: ")
+                    Toast.makeText(
+                        requireContext(),
+                        "No Internet Connection Available!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     override fun onDestroy() {

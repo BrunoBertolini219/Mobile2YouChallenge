@@ -22,21 +22,43 @@ class MoviesViewModel @Inject constructor(
 
     private val _nowPlayingLiveData = MutableLiveData<Resource<MoviesListResponse>>()
     val nowPlayingLiveData: LiveData<Resource<MoviesListResponse>> = _nowPlayingLiveData
+    var nowPlayingPage = 1
+    var nowPlayingResponse: MoviesListResponse? = null
 
     private val _upcomingLiveData = MutableLiveData<Resource<MoviesListResponse>>()
     val upcomingLiveData: LiveData<Resource<MoviesListResponse>> = _upcomingLiveData
+    var upcomingPage = 1
+    var upcomingResponse: MoviesListResponse? = null
 
     private val _topRatedLiveData = MutableLiveData<Resource<MoviesListResponse>>()
     val topRatedLiveData: LiveData<Resource<MoviesListResponse>> = _topRatedLiveData
+    var topRatedPage = 1
+    var topRatedResponse: MoviesListResponse? = null
 
     private val _popularLiveData = MutableLiveData<Resource<MoviesListResponse>>()
     val popularLiveData: LiveData<Resource<MoviesListResponse>> = _popularLiveData
+    var popularPage = 1
+    var popularResponse: MoviesListResponse? = null
 
+
+
+    init {
+        getMoviesNowPlaying()
+    }
 
     fun getMoviesNowPlaying() = viewModelScope.launch {
+
         _nowPlayingLiveData.postValue(Resource.Loading())
         val response = getMoviesNowPlayingUseCase.invoke()
         _nowPlayingLiveData.postValue(response)
+
+        nowPlayingPage++
+        if(nowPlayingResponse == null){
+            nowPlayingResponse = response.data
+    }else{
+        val oldMovies = nowPlayingResponse?.results
+        val newAMovies = response.data?.results
+
     }
 
     fun getMoviesUpcoming() = viewModelScope.launch {
@@ -50,4 +72,11 @@ class MoviesViewModel @Inject constructor(
     fun getMoviesPopular() = viewModelScope.launch {
 
     }
+
+    fun handlingPagination(){
+
+
+        }
+    }
+
 }
