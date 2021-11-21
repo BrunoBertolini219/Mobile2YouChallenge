@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mobile2YouChallenge</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_item_image">Movie Image</string>
+    <string name="now_playing">Em Exibição</string>
 </resources>
