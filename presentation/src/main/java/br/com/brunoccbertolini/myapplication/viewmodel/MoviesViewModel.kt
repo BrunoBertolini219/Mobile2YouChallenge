@@ -5,7 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.brunoccbertolini.domain.model.MoviesListResponse
-import br.com.brunoccbertolini.domain.usecase.*
+import br.com.brunoccbertolini.domain.usecase.GetMoviesNowPlayingUseCaseImpl
+import br.com.brunoccbertolini.domain.usecase.GetMoviesPopularUseCaseImpl
+import br.com.brunoccbertolini.domain.usecase.GetMoviesTopRatedUseCaseImpl
+import br.com.brunoccbertolini.domain.usecase.GetMoviesUpcomingUseCaseImpl
 import br.com.brunoccbertolini.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +19,7 @@ class MoviesViewModel @Inject constructor(
     private val getMoviesNowPlayingUseCase: GetMoviesNowPlayingUseCaseImpl,
     private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCaseImpl,
     private val getMoviesTopRatedUseCase: GetMoviesTopRatedUseCaseImpl,
-    private val getMoviesPopularUseCaseImpl: GetMoviesPopularUseCaseImpl
+    private val getMoviesPopularUseCase: GetMoviesPopularUseCaseImpl
 
 ) : ViewModel() {
 
@@ -41,42 +44,39 @@ class MoviesViewModel @Inject constructor(
     var popularResponse: MoviesListResponse? = null
 
 
-
-    init {
-        getMoviesNowPlaying()
-    }
-
     fun getMoviesNowPlaying() = viewModelScope.launch {
 
         _nowPlayingLiveData.postValue(Resource.Loading())
         val response = getMoviesNowPlayingUseCase.invoke()
         _nowPlayingLiveData.postValue(response)
 
-        nowPlayingPage++
-        if(nowPlayingResponse == null){
-            nowPlayingResponse = response.data
-    }else{
-        val oldMovies = nowPlayingResponse?.results
-        val newAMovies = response.data?.results
+    }
 
+    init {
+        getMoviesNowPlaying()
+        getMoviesPopular()
+        getMoviesTopRated()
+        getMoviesUpcoming()
     }
 
     fun getMoviesUpcoming() = viewModelScope.launch {
-
+        _upcomingLiveData.postValue(Resource.Loading())
+        val response = getMoviesUpcomingUseCase.invoke()
+        _upcomingLiveData.postValue(response)
     }
 
     fun getMoviesTopRated() = viewModelScope.launch {
+        _topRatedLiveData.postValue(Resource.Loading())
+        val response = getMoviesTopRatedUseCase.invoke()
+        _topRatedLiveData.postValue(response)
 
     }
 
     fun getMoviesPopular() = viewModelScope.launch {
+        _popularLiveData.postValue(Resource.Loading())
+        val response = getMoviesPopularUseCase.invoke()
+        _popularLiveData.postValue(response)
 
-    }
-
-    fun handlingPagination(){
-
-
-        }
     }
 
 }

@@ -14,25 +14,33 @@ interface MoviesService {
     @GET("movie/now_playing")
     suspend fun getMoviesNowPlaying(
         @Query("api_key")
-        apiKey: String = API_KEY
+        apiKey: String = API_KEY,
+        @Query("page")
+        page: Int? = 1
     ): Response<MoviesListResponse>
 
     @GET("movie/top_rated")
     suspend fun getMoviesTopRated(
         @Query("api_key")
-        apiKey: String = API_KEY
+        apiKey: String = API_KEY,
+        @Query("page")
+        page: Int? = 1
     ): Response<MoviesListResponse>
 
     @GET("movie/upcoming")
     suspend fun getMoviesUpcoming(
         @Query("api_key")
-        apiKey: String = API_KEY
+        apiKey: String = API_KEY,
+        @Query("page")
+        page:Int? = 1
     ): Response<MoviesListResponse>
 
     @GET("movie/popular")
     suspend fun getMoviesPopular(
         @Query("api_key")
-        apiKey: String = API_KEY
+        apiKey: String = API_KEY,
+        @Query("page")
+        page:Int? = 1
     ): Response<MoviesListResponse>
 
     @GET("movie/{movie_id}/similar")

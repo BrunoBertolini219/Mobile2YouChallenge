@@ -11,6 +11,7 @@
     <string name="melhores_avaliados">Melhores Avaliados</string>
     <string name="sinopse">Sinopse</string>
     <string name="sinopse_content_description_sample">The Asgardian Loki encounters the Other, the leader of an extraterrestrial race known as the Chitauri. In exchange for retrieving the Tesseract...</string>
-    <string name="comentrio">Comentário</string>
+    <string name="comentrio">Comentários</string>
     <string name="mais_como_este">Mais Como Este</string>
+    <string name="movies_categories_title">Movies Categories Title</string>
 </resources>

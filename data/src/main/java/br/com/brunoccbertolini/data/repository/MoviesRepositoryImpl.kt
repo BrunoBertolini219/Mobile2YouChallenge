@@ -66,7 +66,7 @@ class MoviesRepositoryImpl @Inject constructor(
             )
         }
     }
-    }
+}
 
     private fun handleMoviesListResponse(response: Response<br.com.brunoccbertolini.data.model.MoviesListResponse>): Resource<MoviesListResponse> {
         return try {

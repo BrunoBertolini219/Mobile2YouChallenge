@@ -7,11 +7,6 @@ data class MoviesListResponse(
     val results: List<MovieListItem>?
 )
 
-fun getResults(results: List<MovieListItem>?){
-
-}
-
-
 data class MovieListItem(
 
     val poster_path: String?,

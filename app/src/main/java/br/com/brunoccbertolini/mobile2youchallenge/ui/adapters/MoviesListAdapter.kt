@@ -1,6 +1,5 @@
 package br.com.brunoccbertolini.mobile2youchallenge.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -46,7 +45,6 @@ class MoviesListAdapter : RecyclerView.Adapter<MoviesListAdapter.ViewHolder>() {
 
 
         fun bindView(movie: MovieListItem) {
-            Log.e("RecyclerView", "bindView imag path: ${movie.poster_path}")
             movie.apply {
 
                 Glide.with(itemView.context)

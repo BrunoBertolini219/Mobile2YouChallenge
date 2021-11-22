@@ -1,6 +1,5 @@
 package br.com.brunoccbertolini.mobile2youchallenge.ui.fragments.movies
 
-import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,7 +25,6 @@ class MoviesFragment : Fragment() {
     private val viewBinding: FragmentMoviesBinding get() = _viewBinding!!
 
     private lateinit var connectionLiveData: ConnectionLiveData
-
     private val viewModelMovies: MoviesViewModel by viewModels()
 
     private lateinit var adapterMovies: MoviesListAdapter
@@ -45,8 +43,6 @@ class MoviesFragment : Fragment() {
         setupRecyclerView()
         setupNavigation()
     }
-
-
 
     private fun setupNavigation() {
         adapterMovies.setOnItemClickListener {
@@ -71,6 +67,7 @@ class MoviesFragment : Fragment() {
                 false
             )
         }
+
     }
 
     private fun setupObservers() {
@@ -84,19 +81,16 @@ class MoviesFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     response.message?.let { message ->
-                        Toast.makeText(requireContext(), message , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                         hideProgressBar()
                     }
                 }
-
                 is Resource.Loading -> {
                     showProgressBar()
-
                 }
             }
         })
     }
-
     private fun hideProgressBar() {
         viewBinding.paginationProgressBar.visibility = View.INVISIBLE
     }
@@ -106,26 +100,31 @@ class MoviesFragment : Fragment() {
     }
 
     private fun checkInternetConnection() {
-            connectionLiveData = ConnectionLiveData(this.requireContext())
-            connectionLiveData.observe(viewLifecycleOwner, { isAvailable ->
-                if (isAvailable) {
-                    viewModelMovies.upcomingResponse
-                    setupObservers()
-                    Log.i("noInternetConnection", "checkInternetConnection: ")
-                    Toast.makeText(
-                        requireContext(),
-                        "Internet Connected!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Log.i("noInternetConnection", "checkInternetConnection: ")
-                    Toast.makeText(
-                        requireContext(),
-                        "No Internet Connection Available!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+        connectionLiveData = ConnectionLiveData(this.requireContext())
+        connectionLiveData.observe(viewLifecycleOwner, { isAvailable ->
+            if (isAvailable) {
+                viewModelMovies.apply {
+                    getMoviesNowPlaying()
+                    getMoviesPopular()
+                    getMoviesTopRated()
+                    getMoviesUpcoming()
                 }
-            })
+
+                setupObservers()
+            } else {
+                Log.i("noInternetConnection", "checkInternetConnection: ")
+                Toast.makeText(
+                    requireContext(),
+                    "No Internet Connection Available!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupObservers()
     }
 
     override fun onDestroy() {
