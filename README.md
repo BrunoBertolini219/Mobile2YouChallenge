@@ -33,9 +33,12 @@ A divisão dos módulos:
 
 # Demonstração
 
-<img align="left" height="200" src="https://github.com/BrunoBertolini219/Mobile2YouChallenge/blob/master/Screenshot_2021-11-24-07-35-40-946_br.com.brunoccbertolini.mobile2youchallenge.jpg?raw=true">
-<img align="left" height="200" src="https://github.com/BrunoBertolini219/Mobile2YouChallenge/blob/master/Screenshot_2021-11-24-07-39-25-201_br.com.brunoccbertolini.mobile2youchallenge.jpg?raw=true">
-<img align="left" height="200" src="https://github.com/BrunoBertolini219/Mobile2YouChallenge/blob/master/Screenshot_2021-11-24-07-39-44-246_br.com.brunoccbertolini.mobile2youchallenge.jpg?raw=true">
+<img align="left" height="200" src="https://github.com/BrunoBertolini219/Mobile2YouChallenge/blob/master/readme_assets/Movie2YouApp.gif?raw=true">
+<img align="left" height="200" src="https://github.com/BrunoBertolini219/Mobile2YouChallenge/blob/master/readme_assets/movie_list_screen_.jpg?raw=true">
+<img align="left" height="200" src="https://github.com/BrunoBertolini219/Mobile2YouChallenge/blob/master/readme_assets/movie_detail_screen.jpg?raw=true">
+<img align="left" height="200" src="https://github.com/BrunoBertolini219/Mobile2YouChallenge/blob/master/readme_assets/movie_detaik_scree_2.jpg?raw=true">
+
+
 
 
 
