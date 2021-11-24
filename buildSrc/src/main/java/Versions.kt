@@ -17,8 +17,39 @@ object Versions {
     const val constraintLayout = "2.1.2"
     const val liveData = "2.4.0"
     const val recyclerView = "1.2.1"
-    const val cardView= "1.0.0"
+    const val cardView = "1.0.0"
     const val legacySupport = "1.0.0"
     const val navigation = "2.3.5"
     const val glide = "4.12.0"
+
+
+}
+
+object VersionsTest {
+    const val testCore = "1.4.0"
+
+    const val junitTest = "4.13.2"
+    const val extJunitTest = "1.1.3"
+    const val hamcrestTest = "1.3"
+    const val archCoreTest = "2.1.0"
+    const val coroutinesTest = "1.5.0"
+    const val mockitoCoreTest = "2.23.0"
+    const val robolectricTest = "4.3.1"
+
+    //Instrumented
+
+    const val dexmakerMokitoInstrumented = "2.12.1"
+    const val coroutinesInstrumented = "1.5.0"
+    const val androidArchInstrumented = "2.1.0"
+    const val truthInstrumentedTest = "1.0.1"
+    const val extJunitInstrumented = "1.1.3"
+    const val espressoCoreInstrumented = "3.4.0"
+    const val mockitoInstrumented = "2.23.0"
+    const val hiltInstrumented = "2.39.1"
+    const val espressoContribInstrumented = "3.4.0"
+
+    const val hiltCompilerKapt = "2.39.1"
+    const val testFragmentDebug = "3.4.0"
+
+
 }

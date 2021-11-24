@@ -1,7 +1,6 @@
 package br.com.brunoccbertolini.mobile2youchallenge.ui.fragments.movies
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +14,8 @@ import br.com.brunoccbertolini.domain.model.MovieListItem
 import br.com.brunoccbertolini.domain.util.Resource
 import br.com.brunoccbertolini.mobile2youchallenge.R
 import br.com.brunoccbertolini.mobile2youchallenge.databinding.FragmentMoviesBinding
-import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.OnMainItemClickListener
 import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MoviesParentAdapter
+import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.OnMainItemClickListener
 import br.com.brunoccbertolini.mobile2youchallenge.util.ConnectionLiveData
 import br.com.brunoccbertolini.mobile2youchallenge.util.SectionDiffUtil
 import br.com.brunoccbertolini.myapplication.viewmodel.MoviesViewModel
@@ -65,7 +64,7 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
                 is Resource.Success -> {
                     response.data?.let { moviesResponse ->
                         populateListMovies.add(
-                            MovieListCategory("Em Exibição", moviesResponse.results ?: emptyList())
+                            MovieListCategory(getString(R.string.em_exibicao), moviesResponse.results ?: emptyList())
                         )
                         adapterMoviesMovies.submitList(populateListMovies)
                         hideProgressBar()
@@ -92,7 +91,7 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
                     response.data?.let { moviesResponse ->
                         populateListMovies.add(
                             MovieListCategory(
-                                "Em Breve",
+                                getString(R.string.em_breve),
                                 moviesResponse.results ?: emptyList()
                             )
                         )
@@ -122,7 +121,7 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
                     response.data?.let { moviesResponse ->
                         populateListMovies.add(
                             MovieListCategory(
-                                "Populares",
+                                getString(R.string.mais_populares),
                                 moviesResponse.results ?: emptyList()
                             )
                         )
@@ -149,10 +148,9 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { moviesResponse ->
-
                         populateListMovies.add(
                             MovieListCategory(
-                                "Melhores Avaliados",
+                                getString(R.string.melhores_avaliados),
                                 moviesResponse.results ?: emptyList()
                             )
                         )
@@ -190,10 +188,9 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
                 setupPopularObservers()
                 setupTopRatedObservers()
             } else {
-                Log.i("noInternetConnection", "checkInternetConnection: ")
                 Toast.makeText(
                     requireContext(),
-                    "No Internet Connection Available!",
+                    getString(R.string.no_internet_connection),
                     Toast.LENGTH_SHORT
                 ).show()
             }

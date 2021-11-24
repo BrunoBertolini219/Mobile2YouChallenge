@@ -48,8 +48,6 @@ dependencies {
         kapt kpt
     }
 
-    testImplementation Dependencies.AndroidTests.jUnitTest
-
     Dependencies.AndroidTests.instrumentedTest.forEach { androidTest ->
         androidTestImplementation androidTest
     }

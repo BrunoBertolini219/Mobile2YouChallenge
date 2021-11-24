@@ -1,18 +1,24 @@
 <resources>
     <string name="app_name">Mobile2YouChallenge</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="movie_item_image">Movie Image</string>
-    <string name="now_playing">Em Exibição</string>
     <string name="movie_selected_image_poster">Movie Selected Image Poster</string>
     <string name="movie_selected_cover_image">Movie selected cover image</string>
     <string name="favorite_movie">Favorite Movie</string>
-    <string name="mais_populares">Mais Populares</string>
-    <string name="melhores_avaliados">Melhores Avaliados</string>
-    <string name="sinopse">Sinopse</string>
-    <string name="sinopse_content_description_sample">The Asgardian Loki encounters the Other, the leader of an extraterrestrial race known as the Chitauri. In exchange for retrieving the Tesseract...</string>
-    <string name="comentrio">Comentários</string>
-    <string name="mais_como_este">Mais Como Este</string>
     <string name="movies_categories_title">Movies Categories Title</string>
+
+    <string name="no_internet_connection">No Internet Connection Available!</string>
+
+    <!-- Movie Details Fragment -->
+    <string name="mais_como_este">Mais Como Este</string>
+    <string name="sinopse_content_description_sample">The Asgardian Loki encounters the Other…"</string>
+    <string name="comentrio">Comentários</string>
+    <string name="sinopse">Sinopse</string>
+
+    <!-- Movies Fragment -->
     <string name="em_breve">Em Breve</string>
+    <string name="melhores_avaliados">Melhores Avaliados</string>
+    <string name="mais_populares">Mais Populares</string>
+    <string name="em_exibicao">Em Exibição</string>
+
 </resources>

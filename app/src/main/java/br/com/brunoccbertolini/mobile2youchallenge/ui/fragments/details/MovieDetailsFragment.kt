@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.brunoccbertolini.domain.model.MovieDetailResponse
 import br.com.brunoccbertolini.domain.model.MovieListItem
 import br.com.brunoccbertolini.domain.util.Resource
+import br.com.brunoccbertolini.mobile2youchallenge.R
 import br.com.brunoccbertolini.mobile2youchallenge.databinding.FragmentMovieDetailsBinding
 import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MovieReviewsAdapter
 import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MoviesPlayingSimilar
@@ -175,7 +176,7 @@ class MovieDetailsFragment : Fragment() {
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "No Internet Connection Available!",
+                    getString(R.string.no_internet_connection),
                     Toast.LENGTH_SHORT
                 ).show()
             }

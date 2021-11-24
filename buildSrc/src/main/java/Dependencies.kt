@@ -128,26 +128,57 @@ object Dependencies {
     }
 
 
-
-
-    object VersionsTest {
-        const val junit = "4.0.0"
-        const val extJunit = "1.1.3"
-        const val espressoCore = "3.4.0"
-    }
-
     object AndroidTests {
-        private const val junit = "junit:junit:${VersionsTest.junit}"
-        private const val extJunit = "androidx.test.ext:junit:${VersionsTest.extJunit}"
-        private const val espressoCore =
-            "androidx.test.espresso:espresso-core:${VersionsTest.espressoCore}"
+        private const val testCoreAndroidX = "androidx.test:core:${VersionsTest.testCore}"
 
-        val jUnitTest = junit
-        val instrumentedTest = listOf(
-            extJunit,
-            espressoCore
+        //Test
+        private const val junit = "junit:junit:${VersionsTest.junitTest}"
+        private const val hamcrestTest = "org.hamcrest:hamcrest-all:${VersionsTest.hamcrestTest}"
+        private const val archCoreTest =
+            "androidx.arch.core:core-testing:${VersionsTest.archCoreTest}"
+        private const val robolectricTest =
+            "org.robolectric:robolectric:${VersionsTest.robolectricTest}"
+        private const val coroutinesTest =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${VersionsTest.coroutinesTest}"
+        private const val truthTest = "com.google.truth:truth:${VersionsTest.truthInstrumentedTest}"
+        private const val mockitoTest = "org.mockito:mockito-core:${VersionsTest.mockitoCoreTest}"
+
+
+        //Instrumented
+        private const val espressoContrib =
+            "androidx.test.espresso:espresso-contrib:${VersionsTest.espressoContribInstrumented}"
+        private const val extJunit = "androidx.test.ext:junit:${VersionsTest.extJunitTest}"
+        private const val espressoCore =
+            "androidx.test.espresso:espresso-core:${VersionsTest.espressoCoreInstrumented}"
+        private const val hiltTest =
+            "com.google.dagger:hilt-android-testing:${VersionsTest.hiltInstrumented}"
+
+        const val hiltAndroidTestKapt =
+            "com.google.dagger:hilt-android-compiler:${VersionsTest.hiltCompilerKapt}"
+        const val debugFragmentTest =
+            "androidx.fragment:fragment-testing:${VersionsTest.testFragmentDebug}"
+
+        val test = listOf(
+            junit,
+            hamcrestTest,
+            archCoreTest,
+            robolectricTest,
+            coroutinesTest,
+            truthTest,
+            mockitoTest
         )
 
+        val instrumentedTest = listOf(
+            extJunit,
+            espressoCore,
+            junit,
+            archCoreTest,
+            truthTest,
+            mockitoTest,
+            coroutinesTest,
+            espressoContrib,
+            hiltTest
+        )
     }
 }
 

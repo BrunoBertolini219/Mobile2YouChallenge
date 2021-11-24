@@ -53,9 +53,15 @@ dependencies {
         kapt kpt
     }
 
-    testImplementation Dependencies.AndroidTests.jUnitTest
-
-    Dependencies.AndroidTests.instrumentedTest.forEach { androidTest ->
-        androidTestImplementation androidTest
+    Dependencies.AndroidTests.test.forEach { androidTest ->
+        testImplementation androidTest
     }
+
+    Dependencies.AndroidTests.instrumentedTest.forEach { testInstrumented ->
+        androidTestImplementation testInstrumented
+    }
+    kaptAndroidTest Dependencies.AndroidTests.hiltAndroidTestKapt
+
+    debugImplementation Dependencies.AndroidTests.debugFragmentTest
+
 }

@@ -55,8 +55,6 @@ dependencies {
 
     kapt Dependencies.CoreLibs.glideKpt
 
-    testImplementation Dependencies.AndroidTests.jUnitTest
-
     Dependencies.AndroidTests.instrumentedTest.forEach { androidTest ->
         androidTestImplementation androidTest
     }

@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(1500)
+        Thread.sleep(1000)
         setTheme(R.style.Theme_Mobile2YouChallenge)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
