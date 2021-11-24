@@ -1,5 +1,6 @@
 package br.com.brunoccbertolini.data.service
 
+
 import br.com.brunoccbertolini.data.model.MovieDetailResponse
 import br.com.brunoccbertolini.data.model.MovieReviewResponse
 import br.com.brunoccbertolini.data.model.MoviesListResponse
