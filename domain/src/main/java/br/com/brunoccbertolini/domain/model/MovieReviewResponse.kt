@@ -8,5 +8,5 @@ data class MovieReviewResponse(
 
 data class MovieReviewItem(
     val author: String?,
-    val content: String?
+    val content: String?,
 ): Serializable

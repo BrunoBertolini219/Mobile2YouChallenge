@@ -11,7 +11,7 @@ import br.com.brunoccbertolini.mobile2youchallenge.databinding.ListMoviesItemBin
 import br.com.brunoccbertolini.mobile2youchallenge.util.Constants.Companion.BASE_IMG_URL
 import com.bumptech.glide.Glide
 
-class MoviesListAdapter : RecyclerView.Adapter<MoviesListAdapter.ViewHolder>() {
+class MoviesPlayingSimilar : RecyclerView.Adapter<MoviesPlayingSimilar.ViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<MovieListItem>() {
         override fun areItemsTheSame(oldItem: MovieListItem, newItem: MovieListItem): Boolean {

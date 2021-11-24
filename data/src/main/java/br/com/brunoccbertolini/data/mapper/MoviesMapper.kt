@@ -12,7 +12,6 @@ fun br.com.brunoccbertolini.data.model.MoviesListResponse.toDomainMoviesResponse
 
 
 
-
 fun br.com.brunoccbertolini.data.model.MovieDetailResponse.toDomainMovieDetailsResponse() =
     MovieDetailResponse(
         poster_path = poster_path,
@@ -22,7 +21,6 @@ fun br.com.brunoccbertolini.data.model.MovieDetailResponse.toDomainMovieDetailsR
         backdrop_path = backdropPath,
         vote_average = voteAverage,
         runtime = runtime
-
     )
 
 fun br.com.brunoccbertolini.data.model.MovieReviewResponse.toDomainMovieReviewsResponse() =
@@ -37,7 +35,7 @@ fun br.com.brunoccbertolini.data.model.Genres.toDomainDetailGenres() =
 fun br.com.brunoccbertolini.data.model.MovieReviewItem.toDomainReviewItem() =
     MovieReviewItem(
         author = author,
-        content = content
+        content = content,
     )
 
 fun br.com.brunoccbertolini.data.model.MovieListItem.toDomainMovieListItem() =

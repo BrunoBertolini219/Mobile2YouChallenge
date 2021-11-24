@@ -10,72 +10,64 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.brunoccbertolini.domain.model.MovieListCategory
+import br.com.brunoccbertolini.domain.model.MovieListItem
 import br.com.brunoccbertolini.domain.util.Resource
 import br.com.brunoccbertolini.mobile2youchallenge.R
 import br.com.brunoccbertolini.mobile2youchallenge.databinding.FragmentMoviesBinding
-import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MoviesListAdapter
+import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.OnMainItemClickListener
+import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MoviesParentAdapter
 import br.com.brunoccbertolini.mobile2youchallenge.util.ConnectionLiveData
+import br.com.brunoccbertolini.mobile2youchallenge.util.SectionDiffUtil
 import br.com.brunoccbertolini.myapplication.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment() {
+class MoviesFragment : Fragment(), OnMainItemClickListener {
 
     private var _viewBinding: FragmentMoviesBinding? = null
     private val viewBinding: FragmentMoviesBinding get() = _viewBinding!!
 
-    private lateinit var connectionLiveData: ConnectionLiveData
     private val viewModelMovies: MoviesViewModel by viewModels()
 
-    private lateinit var adapterMovies: MoviesListAdapter
+    private lateinit var connectionLiveData: ConnectionLiveData
+    private var populateListMovies = mutableListOf<MovieListCategory>()
+
+    private lateinit var adapterMoviesMovies: MoviesParentAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View {
         _viewBinding = FragmentMoviesBinding.inflate(inflater, container, false)
+        checkInternetConnection()
+        setupRecyclerViewAdapter()
         return viewBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        checkInternetConnection()
-        setupRecyclerView()
-        setupNavigation()
-    }
 
-    private fun setupNavigation() {
-        adapterMovies.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("movie", it)
-            }
-            findNavController().navigate(
-                R.id.action_moviesFragment_to_detailsFragment,
-                bundle
-            )
-        }
-    }
-
-    private fun setupRecyclerView() {
-        adapterMovies = MoviesListAdapter()
-        viewBinding.rvPlayingNowMovies.apply {
-            adapter = adapterMovies
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                this@MoviesFragment.requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
+    private fun setupRecyclerViewAdapter() {
+        val difUtil = SectionDiffUtil()
+        adapterMoviesMovies = MoviesParentAdapter(difUtil, requireContext(), this)
+        viewBinding.apply {
+            rvMoviesList.layoutManager = LinearLayoutManager(requireContext())
+            rvMoviesList.adapter = adapterMoviesMovies
         }
 
     }
 
-    private fun setupObservers() {
-        viewModelMovies.nowPlayingLiveData.observe(viewLifecycleOwner, { response ->
+    private fun setupNowPlayingObservers() {
+
+        viewModelMovies.nowPlayingLiveData.observe(viewLifecycleOwner, { res ->
+            val response = res.peekContent()
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { moviesResponse ->
-                        adapterMovies.differ.submitList(moviesResponse.results)
+                        populateListMovies.add(
+                            MovieListCategory("Em Exibição", moviesResponse.results ?: emptyList())
+                        )
+                        adapterMoviesMovies.submitList(populateListMovies)
                         hideProgressBar()
                     }
                 }
@@ -91,6 +83,96 @@ class MoviesFragment : Fragment() {
             }
         })
     }
+
+    private fun setupUpcomingObservers() {
+        viewModelMovies.upcomingLiveData.observe(viewLifecycleOwner, { res ->
+            val response = res.peekContent()
+            when (response) {
+                is Resource.Success -> {
+                    response.data?.let { moviesResponse ->
+                        populateListMovies.add(
+                            MovieListCategory(
+                                "Em Breve",
+                                moviesResponse.results ?: emptyList()
+                            )
+                        )
+                        adapterMoviesMovies.submitList(populateListMovies)
+                        hideProgressBar()
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let { message ->
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        hideProgressBar()
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
+        })
+    }
+
+    private fun setupPopularObservers() {
+
+        viewModelMovies.popularLiveData.observe(viewLifecycleOwner, { res ->
+            val response = res.peekContent()
+            when (response) {
+                is Resource.Success -> {
+                    response.data?.let { moviesResponse ->
+                        populateListMovies.add(
+                            MovieListCategory(
+                                "Populares",
+                                moviesResponse.results ?: emptyList()
+                            )
+                        )
+                        adapterMoviesMovies.submitList(populateListMovies)
+                        hideProgressBar()
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let { message ->
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        hideProgressBar()
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
+        })
+    }
+
+    private fun setupTopRatedObservers() {
+        viewModelMovies.topRatedLiveData.observe(viewLifecycleOwner, { res ->
+            val response = res.peekContent()
+            when (response) {
+                is Resource.Success -> {
+                    response.data?.let { moviesResponse ->
+
+                        populateListMovies.add(
+                            MovieListCategory(
+                                "Melhores Avaliados",
+                                moviesResponse.results ?: emptyList()
+                            )
+                        )
+                        adapterMoviesMovies.submitList(populateListMovies)
+                        hideProgressBar()
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let { message ->
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        hideProgressBar()
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
+        })
+    }
+
     private fun hideProgressBar() {
         viewBinding.paginationProgressBar.visibility = View.INVISIBLE
     }
@@ -103,14 +185,10 @@ class MoviesFragment : Fragment() {
         connectionLiveData = ConnectionLiveData(this.requireContext())
         connectionLiveData.observe(viewLifecycleOwner, { isAvailable ->
             if (isAvailable) {
-                viewModelMovies.apply {
-                    getMoviesNowPlaying()
-                    getMoviesPopular()
-                    getMoviesTopRated()
-                    getMoviesUpcoming()
-                }
-
-                setupObservers()
+                setupNowPlayingObservers()
+                setupUpcomingObservers()
+                setupPopularObservers()
+                setupTopRatedObservers()
             } else {
                 Log.i("noInternetConnection", "checkInternetConnection: ")
                 Toast.makeText(
@@ -122,9 +200,9 @@ class MoviesFragment : Fragment() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        setupObservers()
+    override fun onStop() {
+        super.onStop()
+        populateListMovies.clear()
     }
 
     override fun onDestroy() {
@@ -132,4 +210,14 @@ class MoviesFragment : Fragment() {
         _viewBinding = null
     }
 
+    override fun onMainItemClick(movie: MovieListItem, position: Int) {
+
+        val bundle = Bundle().apply {
+            putSerializable("movie", movie)
+        }
+        findNavController().navigate(
+            R.id.action_moviesFragment_to_detailsFragment,
+            bundle
+        )
+    }
 }

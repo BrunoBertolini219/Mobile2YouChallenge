@@ -15,7 +15,7 @@ import br.com.brunoccbertolini.domain.model.MovieListItem
 import br.com.brunoccbertolini.domain.util.Resource
 import br.com.brunoccbertolini.mobile2youchallenge.databinding.FragmentMovieDetailsBinding
 import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MovieReviewsAdapter
-import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MoviesListAdapter
+import br.com.brunoccbertolini.mobile2youchallenge.ui.adapters.MoviesPlayingSimilar
 import br.com.brunoccbertolini.mobile2youchallenge.util.ConnectionLiveData
 import br.com.brunoccbertolini.mobile2youchallenge.util.Constants.Companion.BASE_IMG_URL
 import br.com.brunoccbertolini.mobile2youchallenge.util.Converter.Companion.genresListToString
@@ -31,14 +31,13 @@ class MovieDetailsFragment : Fragment() {
     private var _viewBinding: FragmentMovieDetailsBinding? = null
     private val viewBinding: FragmentMovieDetailsBinding get() = _viewBinding!!
 
-
     val args: MovieDetailsFragmentArgs by navArgs()
-    lateinit var navigationMovie: MovieListItem
+    lateinit var argsMovieListItem: MovieListItem
 
     private lateinit var connectionLiveData: ConnectionLiveData
     private val viewModelMovieDetails: MovieDetailViewModel by viewModels()
 
-    private lateinit var adapterMovies: MoviesListAdapter
+    private lateinit var adapterMoviesSimilar: MoviesPlayingSimilar
     private lateinit var adapterMovieReviews: MovieReviewsAdapter
 
     override fun onCreateView(
@@ -52,24 +51,23 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigationMovie = args.movie
-        setupRecyclerViewReviews()
+        argsMovieListItem = args.movie
+        setupRecyclerViewMovieReviews()
         setupRecyclerViewMovies()
 
         checkInternetConnection()
-        setupNavigation()
+        setupSimilarMoviesNavigation()
         setupBackButton()
 
-        setupMovieReviewObserve()
+        setupMovieReviewsObserve()
         setupMovieDetailsObserve()
         setupSimilarMoviesObserve()
     }
 
     private fun setupRecyclerViewMovies() {
-        adapterMovies = MoviesListAdapter()
+        adapterMoviesSimilar = MoviesPlayingSimilar()
         viewBinding.rvMoviesSimilar.apply {
-            adapter = adapterMovies
-            setHasFixedSize(true)
+            adapter = adapterMoviesSimilar
             layoutManager = LinearLayoutManager(
                 this.context,
                 LinearLayoutManager.HORIZONTAL,
@@ -78,7 +76,7 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerViewReviews() {
+    private fun setupRecyclerViewMovieReviews() {
         adapterMovieReviews = MovieReviewsAdapter()
         viewBinding.includeCvReviews.commentList.apply {
             adapter = adapterMovieReviews
@@ -95,7 +93,7 @@ class MovieDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        bindViewDetail(it)
+                        bindViewMovieDetails(it)
                     }
                 }
                 is Resource.Loading -> {
@@ -114,7 +112,7 @@ class MovieDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        adapterMovies.differ.submitList(it.results)
+                        adapterMoviesSimilar.differ.submitList(it.results)
                     }
                 }
                 is Resource.Loading -> {
@@ -127,15 +125,15 @@ class MovieDetailsFragment : Fragment() {
         })
     }
 
-    private fun setupMovieReviewObserve() {
+    private fun setupMovieReviewsObserve() {
         viewModelMovieDetails.movieReviewLiveData.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
                         adapterMovieReviews.differ.submitList(it.results)
-                        }
                     }
+                }
                 is Resource.Loading -> {
                     showProgressBar()
                 }
@@ -146,20 +144,21 @@ class MovieDetailsFragment : Fragment() {
         })
     }
 
-    private fun bindViewDetail(movie: MovieDetailResponse) {
+    private fun bindViewMovieDetails(movieDetails: MovieDetailResponse) {
         viewBinding.apply {
-            includeCvHeader.headerTitle.text = movie.title
-            includeCvHeader.headerGenres.text = genresListToString(movie.genres)
-            includeCvHeader.headerVotes.text = rateToVolteAvegare(movie.vote_average ?: 0f)
-            includeCvHeader.headerTime.text = minutesToHour(movie.runtime ?: 0)
-            tvMovieDetailSinopseContent.text = movie.overview
+            includeCvHeader.headerTitle.text = movieDetails.title
+            includeCvHeader.headerGenres.text = genresListToString(movieDetails.genres)
+            includeCvHeader.headerVotes.text = rateToVolteAvegare(movieDetails.vote_average ?: 0f)
+            includeCvHeader.headerTime.text = minutesToHour(movieDetails.runtime ?: 0)
+            tvMovieDetailSinopseContent.text = movieDetails.overview
 
             Glide.with(this@MovieDetailsFragment).apply {
-                load("$BASE_IMG_URL${movie.backdrop_path}").into(includeCvHeader.headerBackPoster)
-                load("$BASE_IMG_URL${movie.poster_path}").into(includeCvHeader.headerPoster)
+                load("$BASE_IMG_URL${movieDetails.backdrop_path}").into(includeCvHeader.headerBackPoster)
+                load("$BASE_IMG_URL${movieDetails.poster_path}").into(includeCvHeader.headerPoster)
             }
         }
     }
+
     private fun setupBackButton() {
         viewBinding.includeCvHeader.headerBackButton.setOnClickListener {
             findNavController().navigateUp()
@@ -170,9 +169,9 @@ class MovieDetailsFragment : Fragment() {
         connectionLiveData = ConnectionLiveData(this.requireContext())
         connectionLiveData.observe(viewLifecycleOwner, { isAvailable ->
             if (isAvailable) {
-                viewModelMovieDetails.getMovieDetail(navigationMovie.id ?: 1)
-                viewModelMovieDetails.getMovieReview(navigationMovie.id ?: 1)
-                viewModelMovieDetails.getSimilarMovies(navigationMovie.id?: 1)
+                viewModelMovieDetails.getMovieDetail(argsMovieListItem.id ?: 1)
+                viewModelMovieDetails.getMovieReview(argsMovieListItem.id ?: 1)
+                viewModelMovieDetails.getSimilarMovies(argsMovieListItem.id ?: 1)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -183,14 +182,14 @@ class MovieDetailsFragment : Fragment() {
         })
     }
 
-    private fun setupNavigation() {
-        adapterMovies.setOnItemClickListener {
+    private fun setupSimilarMoviesNavigation() {
+        adapterMoviesSimilar.setOnItemClickListener {
             viewModelMovieDetails.getMovieDetail(it.id ?: 1)
             viewModelMovieDetails.getMovieReview(it.id ?: 1)
-            viewModelMovieDetails.getSimilarMovies(it.id ?:1)
+            viewModelMovieDetails.getSimilarMovies(it.id ?: 1)
             setupMovieDetailsObserve()
             setupSimilarMoviesObserve()
-            setupMovieReviewObserve()
+            setupMovieReviewsObserve()
         }
     }
 

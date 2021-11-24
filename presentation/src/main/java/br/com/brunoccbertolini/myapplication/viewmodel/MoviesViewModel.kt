@@ -10,6 +10,7 @@ import br.com.brunoccbertolini.domain.usecase.GetMoviesPopularUseCaseImpl
 import br.com.brunoccbertolini.domain.usecase.GetMoviesTopRatedUseCaseImpl
 import br.com.brunoccbertolini.domain.usecase.GetMoviesUpcomingUseCaseImpl
 import br.com.brunoccbertolini.domain.util.Resource
+import br.com.brunoccbertolini.myapplication.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,63 +21,54 @@ class MoviesViewModel @Inject constructor(
     private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCaseImpl,
     private val getMoviesTopRatedUseCase: GetMoviesTopRatedUseCaseImpl,
     private val getMoviesPopularUseCase: GetMoviesPopularUseCaseImpl
-
 ) : ViewModel() {
 
-    private val _nowPlayingLiveData = MutableLiveData<Resource<MoviesListResponse>>()
-    val nowPlayingLiveData: LiveData<Resource<MoviesListResponse>> = _nowPlayingLiveData
-    var nowPlayingPage = 1
-    var nowPlayingResponse: MoviesListResponse? = null
+    private val _nowPlayingLiveData = MutableLiveData<Event<Resource<MoviesListResponse>>>()
+    val nowPlayingLiveData: LiveData<Event<Resource<MoviesListResponse>>> = _nowPlayingLiveData
 
-    private val _upcomingLiveData = MutableLiveData<Resource<MoviesListResponse>>()
-    val upcomingLiveData: LiveData<Resource<MoviesListResponse>> = _upcomingLiveData
-    var upcomingPage = 1
-    var upcomingResponse: MoviesListResponse? = null
+    private val _upcomingLiveData = MutableLiveData<Event<Resource<MoviesListResponse>>>()
+    val upcomingLiveData: LiveData<Event<Resource<MoviesListResponse>>> = _upcomingLiveData
 
-    private val _topRatedLiveData = MutableLiveData<Resource<MoviesListResponse>>()
-    val topRatedLiveData: LiveData<Resource<MoviesListResponse>> = _topRatedLiveData
-    var topRatedPage = 1
-    var topRatedResponse: MoviesListResponse? = null
+    private val _topRatedLiveData = MutableLiveData<Event<Resource<MoviesListResponse>>>()
+    val topRatedLiveData: LiveData<Event<Resource<MoviesListResponse>>> = _topRatedLiveData
 
-    private val _popularLiveData = MutableLiveData<Resource<MoviesListResponse>>()
-    val popularLiveData: LiveData<Resource<MoviesListResponse>> = _popularLiveData
-    var popularPage = 1
-    var popularResponse: MoviesListResponse? = null
+    private val _popularLiveData = MutableLiveData<Event<Resource<MoviesListResponse>>>()
+    val popularLiveData: LiveData<Event<Resource<MoviesListResponse>>> = _popularLiveData
+
+    init {
+        getMoviesNowPlaying()
+        getMoviesUpcoming()
+        getMoviesPopular()
+        getMoviesTopRated()
+    }
 
 
     fun getMoviesNowPlaying() = viewModelScope.launch {
 
-        _nowPlayingLiveData.postValue(Resource.Loading())
+        _nowPlayingLiveData.postValue(Event(Resource.Loading()))
         val response = getMoviesNowPlayingUseCase.invoke()
-        _nowPlayingLiveData.postValue(response)
+        _nowPlayingLiveData.postValue(Event(response))
 
-    }
-
-    init {
-        getMoviesNowPlaying()
-        getMoviesPopular()
-        getMoviesTopRated()
-        getMoviesUpcoming()
     }
 
     fun getMoviesUpcoming() = viewModelScope.launch {
-        _upcomingLiveData.postValue(Resource.Loading())
+        _upcomingLiveData.postValue(Event(Resource.Loading()))
         val response = getMoviesUpcomingUseCase.invoke()
-        _upcomingLiveData.postValue(response)
+        _upcomingLiveData.postValue(Event(response))
+
     }
 
     fun getMoviesTopRated() = viewModelScope.launch {
-        _topRatedLiveData.postValue(Resource.Loading())
+        _topRatedLiveData.postValue(Event(Resource.Loading()))
         val response = getMoviesTopRatedUseCase.invoke()
-        _topRatedLiveData.postValue(response)
+        _topRatedLiveData.postValue(Event(response))
 
     }
 
     fun getMoviesPopular() = viewModelScope.launch {
-        _popularLiveData.postValue(Resource.Loading())
+        _popularLiveData.postValue(Event(Resource.Loading()))
         val response = getMoviesPopularUseCase.invoke()
-        _popularLiveData.postValue(response)
+        _popularLiveData.postValue(Event(response))
 
     }
-
 }

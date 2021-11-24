@@ -8,7 +8,6 @@ data class MoviesListResponse(
 )
 
 data class MovieListItem(
-
     val poster_path: String?,
     val id: Int?
 ):Serializable
