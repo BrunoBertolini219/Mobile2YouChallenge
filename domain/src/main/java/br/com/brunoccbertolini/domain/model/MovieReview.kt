@@ -2,7 +2,7 @@ package br.com.brunoccbertolini.domain.model
 
 import java.io.Serializable
 
-data class MovieReviewResponse(
+data class MovieReview(
     val results: List<MovieReviewItem>
 )
 

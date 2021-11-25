@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.brunoccbertolini.domain.model.MovieDetailResponse
-import br.com.brunoccbertolini.domain.model.MovieReviewResponse
-import br.com.brunoccbertolini.domain.model.MoviesListResponse
+import br.com.brunoccbertolini.domain.model.MovieDetail
+import br.com.brunoccbertolini.domain.model.MovieReview
+import br.com.brunoccbertolini.domain.model.MoviesList
 import br.com.brunoccbertolini.domain.usecase.GetMovieDetailsUseCaseImpl
 import br.com.brunoccbertolini.domain.usecase.GetMovieReviewUseCaseImpl
 import br.com.brunoccbertolini.domain.usecase.GetSimilarMoviesUseCaseImpl
@@ -22,14 +22,14 @@ class MovieDetailViewModel @Inject constructor(
     private val similarMoviesUseCase: GetSimilarMoviesUseCaseImpl
 ) : ViewModel() {
 
-    private val _movieDetailLiveData = MutableLiveData<Resource<MovieDetailResponse>>()
-    val movieDetailLiveData: LiveData<Resource<MovieDetailResponse>> = _movieDetailLiveData
+    private val _movieDetailLiveData = MutableLiveData<Resource<MovieDetail>>()
+    val movieDetailLiveData: LiveData<Resource<MovieDetail>> = _movieDetailLiveData
 
-    private val _movieReviewLiveData = MutableLiveData<Resource<MovieReviewResponse>>()
-    val movieReviewLiveData: LiveData<Resource<MovieReviewResponse>> = _movieReviewLiveData
+    private val _movieReviewLiveData = MutableLiveData<Resource<MovieReview>>()
+    val movieReviewLiveData: LiveData<Resource<MovieReview>> = _movieReviewLiveData
 
-    private val _similarMoviesLiveData = MutableLiveData<Resource<MoviesListResponse>>()
-    val similarMoviesLiveData: LiveData<Resource<MoviesListResponse>> = _similarMoviesLiveData
+    private val _similarMoviesLiveData = MutableLiveData<Resource<MoviesList>>()
+    val similarMoviesLiveData: LiveData<Resource<MoviesList>> = _similarMoviesLiveData
 
 
     fun getMovieDetail(id: Int) = viewModelScope.launch {

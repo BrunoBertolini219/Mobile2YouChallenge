@@ -7,10 +7,10 @@ import br.com.brunoccbertolini.data.mapper.toDomainMovieReviewsResponse
 import br.com.brunoccbertolini.data.mapper.toDomainMoviesResponse
 import br.com.brunoccbertolini.data.service.MoviesService
 import br.com.brunoccbertolini.data.util.MoviesPagingDataSource
-import br.com.brunoccbertolini.domain.model.MovieDetailResponse
+import br.com.brunoccbertolini.domain.model.MovieDetail
 import br.com.brunoccbertolini.domain.model.MovieListItem
-import br.com.brunoccbertolini.domain.model.MovieReviewResponse
-import br.com.brunoccbertolini.domain.model.MoviesListResponse
+import br.com.brunoccbertolini.domain.model.MovieReview
+import br.com.brunoccbertolini.domain.model.MoviesList
 import br.com.brunoccbertolini.domain.repository.MoviesRepository
 import br.com.brunoccbertolini.domain.util.Resource
 import retrofit2.Response
@@ -30,22 +30,22 @@ class MoviesRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun getMoviesUpComing(): Resource<MoviesListResponse> =
+    override suspend fun getMoviesUpComing(): Resource<MoviesList> =
         handleMoviesListResponse(moviesService.getMoviesUpcoming())
 
-    override suspend fun getMoviesPopular(): Resource<MoviesListResponse> =
+    override suspend fun getMoviesPopular(): Resource<MoviesList> =
         handleMoviesListResponse(moviesService.getMoviesPopular())
 
-    override suspend fun getMoviesNowPlaying(): Resource<MoviesListResponse> =
+    override suspend fun getMoviesNowPlaying(): Resource<MoviesList> =
         handleMoviesListResponse(moviesService.getMoviesNowPlaying())
 
-    override suspend fun getMoviesTopRated(): Resource<MoviesListResponse> =
+    override suspend fun getMoviesTopRated(): Resource<MoviesList> =
         handleMoviesListResponse(moviesService.getMoviesTopRated())
 
-    override suspend fun getSimilarMovies(id: Int): Resource<MoviesListResponse> =
+    override suspend fun getSimilarMovies(id: Int): Resource<MoviesList> =
         handleMoviesListResponse(moviesService.getSimilarMovies(id))
 
-    override suspend fun getMovieDetails(id: Int): Resource<MovieDetailResponse> {
+    override suspend fun getMovieDetails(id: Int): Resource<MovieDetail> {
         val response = moviesService.getMovieDetails(id)
         return try {
             if (response.isSuccessful) {
@@ -63,7 +63,7 @@ class MoviesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMovieReview(id: Int): Resource<MovieReviewResponse> {
+    override suspend fun getMovieReview(id: Int): Resource<MovieReview> {
         val response = moviesService.getMovieReviews(id)
         return try {
             if (response.isSuccessful) {
@@ -82,7 +82,7 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 }
 
-private fun handleMoviesListResponse(response: Response<br.com.brunoccbertolini.data.model.MoviesListResponse>): Resource<MoviesListResponse> {
+private fun handleMoviesListResponse(response: Response<br.com.brunoccbertolini.data.model.MoviesListResponse>): Resource<MoviesList> {
     return try {
 
         if (response.isSuccessful) {

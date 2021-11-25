@@ -40,6 +40,7 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
 
     ): View {
         _viewBinding = FragmentMoviesBinding.inflate(inflater, container, false)
+        populateListMovies.clear()
         checkInternetConnection()
         setupRecyclerViewAdapter()
         return viewBinding.root
@@ -47,6 +48,7 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
 
 
     private fun setupRecyclerViewAdapter() {
+
         val difUtil = SectionDiffUtil()
         adapterMoviesMovies = MoviesParentAdapter(difUtil, requireContext(), this)
         viewBinding.apply {
@@ -64,7 +66,10 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
                 is Resource.Success -> {
                     response.data?.let { moviesResponse ->
                         populateListMovies.add(
-                            MovieListCategory(getString(R.string.em_exibicao), moviesResponse.results ?: emptyList())
+                            MovieListCategory(
+                                getString(R.string.em_exibicao),
+                                moviesResponse.results ?: emptyList()
+                            )
                         )
                         adapterMoviesMovies.submitList(populateListMovies)
                         hideProgressBar()

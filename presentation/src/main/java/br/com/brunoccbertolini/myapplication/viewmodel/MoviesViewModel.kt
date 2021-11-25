@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.brunoccbertolini.domain.model.MoviesListResponse
+import br.com.brunoccbertolini.domain.model.MoviesList
 import br.com.brunoccbertolini.domain.usecase.GetMoviesNowPlayingUseCaseImpl
 import br.com.brunoccbertolini.domain.usecase.GetMoviesPopularUseCaseImpl
 import br.com.brunoccbertolini.domain.usecase.GetMoviesTopRatedUseCaseImpl
@@ -23,17 +23,17 @@ class MoviesViewModel @Inject constructor(
     private val getMoviesPopularUseCase: GetMoviesPopularUseCaseImpl
 ) : ViewModel() {
 
-    private val _nowPlayingLiveData = MutableLiveData<Event<Resource<MoviesListResponse>>>()
-    val nowPlayingLiveData: LiveData<Event<Resource<MoviesListResponse>>> = _nowPlayingLiveData
+    private val _nowPlayingLiveData = MutableLiveData<Event<Resource<MoviesList>>>()
+    val nowPlayingLiveData: LiveData<Event<Resource<MoviesList>>> = _nowPlayingLiveData
 
-    private val _upcomingLiveData = MutableLiveData<Event<Resource<MoviesListResponse>>>()
-    val upcomingLiveData: LiveData<Event<Resource<MoviesListResponse>>> = _upcomingLiveData
+    private val _upcomingLiveData = MutableLiveData<Event<Resource<MoviesList>>>()
+    val upcomingLiveData: LiveData<Event<Resource<MoviesList>>> = _upcomingLiveData
 
-    private val _topRatedLiveData = MutableLiveData<Event<Resource<MoviesListResponse>>>()
-    val topRatedLiveData: LiveData<Event<Resource<MoviesListResponse>>> = _topRatedLiveData
+    private val _topRatedLiveData = MutableLiveData<Event<Resource<MoviesList>>>()
+    val topRatedLiveData: LiveData<Event<Resource<MoviesList>>> = _topRatedLiveData
 
-    private val _popularLiveData = MutableLiveData<Event<Resource<MoviesListResponse>>>()
-    val popularLiveData: LiveData<Event<Resource<MoviesListResponse>>> = _popularLiveData
+    private val _popularLiveData = MutableLiveData<Event<Resource<MoviesList>>>()
+    val popularLiveData: LiveData<Event<Resource<MoviesList>>> = _popularLiveData
 
     init {
         getMoviesNowPlaying()

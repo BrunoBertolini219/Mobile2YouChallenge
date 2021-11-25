@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.brunoccbertolini.domain.model.MovieDetailResponse
+import br.com.brunoccbertolini.domain.model.MovieDetail
 import br.com.brunoccbertolini.domain.model.MovieListItem
 import br.com.brunoccbertolini.domain.util.Resource
 import br.com.brunoccbertolini.mobile2youchallenge.R
@@ -145,7 +145,7 @@ class MovieDetailsFragment : Fragment() {
         })
     }
 
-    private fun bindViewMovieDetails(movieDetails: MovieDetailResponse) {
+    private fun bindViewMovieDetails(movieDetails: MovieDetail) {
         viewBinding.apply {
             includeCvHeader.headerTitle.text = movieDetails.title
             includeCvHeader.headerGenres.text = genresListToString(movieDetails.genres)

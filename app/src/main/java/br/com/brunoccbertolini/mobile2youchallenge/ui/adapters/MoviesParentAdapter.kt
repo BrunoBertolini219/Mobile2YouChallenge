@@ -38,7 +38,7 @@ class MoviesParentAdapter(
             binding.tvMoviesCategory.text = movie.category
 
             val childAdapter = MoviesChildAdapter(UserDiffUtil())
-            childAdapter.submitList(movie.movielist)
+            childAdapter.submitList(movie.movieList)
 
             binding.rvMoviesCategory.layoutManager =
                 LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)

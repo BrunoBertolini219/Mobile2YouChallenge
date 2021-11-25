@@ -49,7 +49,7 @@ object VersionsTest {
     const val espressoContribInstrumented = "3.4.0"
 
     const val hiltCompilerKapt = "2.39.1"
-    const val testFragmentDebug = "3.4.0"
+    const val testFragmentDebug = "1.4.0"
 
 
 }

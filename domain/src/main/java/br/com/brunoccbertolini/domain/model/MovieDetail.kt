@@ -1,6 +1,6 @@
 package br.com.brunoccbertolini.domain.model
 
-data class MovieDetailResponse(
+data class MovieDetail(
     val poster_path: String?,
     val overview: String?,
     val genres: List<Genres>,
