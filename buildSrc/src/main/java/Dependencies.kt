@@ -142,6 +142,7 @@ object Dependencies {
             "org.jetbrains.kotlinx:kotlinx-coroutines-test:${VersionsTest.coroutinesTest}"
         private const val truthTest = "com.google.truth:truth:${VersionsTest.truthInstrumentedTest}"
         private const val mockitoTest = "org.mockito:mockito-core:${VersionsTest.mockitoCoreTest}"
+        private const val mockkTest = "io.mockk:mockk:${VersionsTest.mockk}"
 
 
         //Instrumented
@@ -158,6 +159,14 @@ object Dependencies {
         const val debugFragmentTest =
             "androidx.fragment:fragment-testing:${VersionsTest.testFragmentDebug}"
 
+
+        val domainTest = listOf(
+            junit,
+            mockkTest,
+            coroutinesTest
+
+        )
+
         val test = listOf(
             junit,
             hamcrestTest,
@@ -165,7 +174,8 @@ object Dependencies {
             robolectricTest,
             coroutinesTest,
             truthTest,
-            mockitoTest
+            mockitoTest,
+            mockkTest
         )
 
         val instrumentedTest = listOf(
@@ -177,7 +187,8 @@ object Dependencies {
             mockitoTest,
             coroutinesTest,
             espressoContrib,
-            hiltTest
+            hiltTest,
+            mockkTest
         )
     }
 }

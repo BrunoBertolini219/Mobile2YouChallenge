@@ -42,7 +42,11 @@ dependencies {
     Dependencies.CoreLibs.presentationDep.forEach { dependency ->
         implementation dependency
     }
-    implementation("androidx.collection:collection-ktx:1.2.0-rc01")
+
+    Dependencies.AndroidTests.test.forEach { dependency ->
+        testImplementation dependency
+    }
+
 
     Dependencies.CoreLibs.hiltKpt.forEach { kpt ->
         kapt kpt

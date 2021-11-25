@@ -27,7 +27,7 @@ object Versions {
 
 object VersionsTest {
     const val testCore = "1.4.0"
-
+    const val mockk = "1.10.5"
     const val junitTest = "4.13.2"
     const val extJunitTest = "1.1.3"
     const val hamcrestTest = "1.3"

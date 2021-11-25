@@ -14,4 +14,8 @@ java {
 dependencies {
     implementation Dependencies.Domain.kotlinStdlib
     api group: 'javax.inject', name: 'javax.inject', version: '1'
+
+    Dependencies.AndroidTests.test.forEach { dependencies ->
+        testImplementation dependencies
+    }
 }
