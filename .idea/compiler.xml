@@ -7,6 +7,7 @@
       <module name="Mobile2YouChallenge.data" target="11" />
       <module name="Mobile2YouChallenge.data.data" target="11" />
       <module name="Mobile2YouChallenge.presentation" target="11" />
+      <module name="MoviesChallenge.buildSrc" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

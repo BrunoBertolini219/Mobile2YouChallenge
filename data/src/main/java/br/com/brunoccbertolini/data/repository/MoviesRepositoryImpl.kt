@@ -1,10 +1,13 @@
 package br.com.brunoccbertolini.data.repository
 
+import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.paging.*
+import br.com.brunoccbertolini.data.R
 import br.com.brunoccbertolini.data.mapper.toDomainMovieDetailsResponse
 import br.com.brunoccbertolini.data.mapper.toDomainMovieReviewsResponse
 import br.com.brunoccbertolini.data.mapper.toDomainMoviesResponse
+import br.com.brunoccbertolini.data.model.MoviesListResponse
 import br.com.brunoccbertolini.data.service.MoviesService
 import br.com.brunoccbertolini.data.util.MoviesPagingDataSource
 import br.com.brunoccbertolini.domain.model.MovieDetail
@@ -51,13 +54,13 @@ class MoviesRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it.toDomainMovieDetailsResponse())
-                } ?: Resource.Error("An unknown error has ocrrured")
+                } ?: Resource.Error(Resources.getSystem().getString(R.string.error_response_api))
             } else {
-                return Resource.Error("An unknown error has ocurred")
+                return Resource.Error(Resources.getSystem().getString(R.string.error_response_api))
             }
         } catch (e: Exception) {
             return Resource.Error(
-                "We couldn't reach the server. Check your internet connection",
+                Resources.getSystem().getString(R.string.could_not_reach_the_server),
                 null
             )
         }
@@ -69,32 +72,32 @@ class MoviesRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it.toDomainMovieReviewsResponse())
-                } ?: Resource.Error("An unknown error has ocrrured")
+                } ?: Resource.Error(Resources.getSystem().getString(R.string.error_response_api))
             } else {
-                return Resource.Error("An unknown error has ocurred")
+                return Resource.Error(Resources.getSystem().getString(R.string.error_response_api))
             }
         } catch (e: Exception) {
             return Resource.Error(
-                "We couldn't reach the server. Check your internet connection",
+                Resources.getSystem().getString(R.string.could_not_reach_the_server),
                 null
             )
         }
     }
 }
 
-private fun handleMoviesListResponse(response: Response<br.com.brunoccbertolini.data.model.MoviesListResponse>): Resource<MoviesList> {
+private fun handleMoviesListResponse(response: Response<MoviesListResponse>): Resource<MoviesList> {
     return try {
 
         if (response.isSuccessful) {
             response.body()?.let {
                 return@let Resource.Success(it.toDomainMoviesResponse())
-            } ?: Resource.Error("An unknown error has ocrrured")
+            } ?: Resource.Error(Resources.getSystem().getString(R.string.error_response_api))
         } else {
-            return Resource.Error("An unknown error has ocurred")
+            return Resource.Error(Resources.getSystem().getString(R.string.error_response_api))
         }
     } catch (e: Exception) {
         return Resource.Error(
-            "We couldn't reach the server. Check your internet connection",
+            Resources.getSystem().getString(R.string.could_not_reach_the_server),
             null
         )
     }

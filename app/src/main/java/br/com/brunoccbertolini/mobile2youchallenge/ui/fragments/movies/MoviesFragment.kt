@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.brunoccbertolini.domain.model.MovieListCategory
 import br.com.brunoccbertolini.domain.model.MovieListItem
+import br.com.brunoccbertolini.domain.model.MoviesList
 import br.com.brunoccbertolini.domain.util.Resource
 import br.com.brunoccbertolini.mobile2youchallenge.R
 import br.com.brunoccbertolini.mobile2youchallenge.databinding.FragmentMoviesBinding
@@ -59,120 +60,34 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
     }
 
     private fun setupNowPlayingObservers() {
-
         viewModelMovies.nowPlayingLiveData.observe(viewLifecycleOwner, { res ->
             val response = res.peekContent()
-            when (response) {
-                is Resource.Success -> {
-                    response.data?.let { moviesResponse ->
-                        populateListMovies.add(
-                            MovieListCategory(
-                                getString(R.string.em_exibicao),
-                                moviesResponse.results ?: emptyList()
-                            )
-                        )
-                        adapterMoviesMovies.submitList(populateListMovies)
-                        hideProgressBar()
-                    }
-                }
-                is Resource.Error -> {
-                    response.message?.let { message ->
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                        hideProgressBar()
-                    }
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
-            }
+            val movieTitle = getString(R.string.em_exibicao)
+            checkResourceResponse(response, movieTitle)
         })
     }
 
     private fun setupUpcomingObservers() {
         viewModelMovies.upcomingLiveData.observe(viewLifecycleOwner, { res ->
             val response = res.peekContent()
-            when (response) {
-                is Resource.Success -> {
-                    response.data?.let { moviesResponse ->
-                        populateListMovies.add(
-                            MovieListCategory(
-                                getString(R.string.em_breve),
-                                moviesResponse.results ?: emptyList()
-                            )
-                        )
-                        adapterMoviesMovies.submitList(populateListMovies)
-                        hideProgressBar()
-                    }
-                }
-                is Resource.Error -> {
-                    response.message?.let { message ->
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                        hideProgressBar()
-                    }
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
-            }
+            val movieTitle = getString(R.string.em_breve)
+            checkResourceResponse(response, movieTitle)
         })
     }
 
     private fun setupPopularObservers() {
-
         viewModelMovies.popularLiveData.observe(viewLifecycleOwner, { res ->
             val response = res.peekContent()
-            when (response) {
-                is Resource.Success -> {
-                    response.data?.let { moviesResponse ->
-                        populateListMovies.add(
-                            MovieListCategory(
-                                getString(R.string.mais_populares),
-                                moviesResponse.results ?: emptyList()
-                            )
-                        )
-                        adapterMoviesMovies.submitList(populateListMovies)
-                        hideProgressBar()
-                    }
-                }
-                is Resource.Error -> {
-                    response.message?.let { message ->
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                        hideProgressBar()
-                    }
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
-            }
+            val movieTitle = getString(R.string.mais_populares)
+            checkResourceResponse(response, movieTitle)
         })
     }
 
     private fun setupTopRatedObservers() {
         viewModelMovies.topRatedLiveData.observe(viewLifecycleOwner, { res ->
             val response = res.peekContent()
-            when (response) {
-                is Resource.Success -> {
-                    response.data?.let { moviesResponse ->
-                        populateListMovies.add(
-                            MovieListCategory(
-                                getString(R.string.melhores_avaliados),
-                                moviesResponse.results ?: emptyList()
-                            )
-                        )
-                        adapterMoviesMovies.submitList(populateListMovies)
-                        hideProgressBar()
-                    }
-                }
-                is Resource.Error -> {
-                    response.message?.let { message ->
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                        hideProgressBar()
-                    }
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
-            }
+            val movieTitle = getString(R.string.melhores_avaliados)
+            checkResourceResponse(response, movieTitle)
         })
     }
 
@@ -210,6 +125,32 @@ class MoviesFragment : Fragment(), OnMainItemClickListener {
     override fun onDestroy() {
         super.onDestroy()
         _viewBinding = null
+    }
+
+    private fun checkResourceResponse(response: Resource<MoviesList>, movieTitle: String) {
+        when (response) {
+            is Resource.Success -> {
+                response.data?.let { moviesResponse ->
+                    populateListMovies.add(
+                        MovieListCategory(
+                            movieTitle,
+                            moviesResponse.results ?: emptyList()
+                        )
+                    )
+                    adapterMoviesMovies.submitList(populateListMovies)
+                    hideProgressBar()
+                }
+            }
+            is Resource.Error -> {
+                response.message?.let { message ->
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    hideProgressBar()
+                }
+            }
+            is Resource.Loading -> {
+                showProgressBar()
+            }
+        }
     }
 
     override fun onMainItemClick(movie: MovieListItem, position: Int) {
